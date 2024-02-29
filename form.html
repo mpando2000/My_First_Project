@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOB FOR SPECIAL NEED</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="./Admin/plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="./Admin/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="./Admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="./Admin/plugins/jqvmap/jqvmap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="./Admin/dist/css/adminlte.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="./Admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="./Admin/plugins/daterangepicker/daterangepicker.css">
+  <!-- summernote -->
+  <link rel="stylesheet" href="./Admin/plugins/summernote/summernote-bs4.min.css">
+  <!-- bootsrap CSS -->
+  <link rel="stylesheet" href="./Admin/Bootsrap/bootstrap.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="./Admin/plugins/fontawesome-free/css/all.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="./Admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="./Admin/dist/css/adminlte.min.css" >
+  <!-- my css -->
+  <title>AdminLTE 3 | Registration Page</title>
+  <link rel="stylesheet" href="./modified-css/main.css">
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="./index.html">Home</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+    
+      <ul class="navbar-nav ">
+        <li class="nav-item">
+          <a class="nav-link" href="./contact.html"><Caption>Contact</Caption></a>
+        </li> 
+        <li class="nav-item">
+          <!-- <?php if($_SERVER['REQUEST_URI'] == '/Daudi/index.php'|| $_SERVER['REQUEST_URI'] == '/Daudi/*'){ echo $_SERVER['REQUEST_URI'];?>
+              <a class="nav-link" href="#" id="admin"><Caption>Admin</Caption></a>
+          <?php } ?> -->
+        </li>
+      </ul>
+      
+    </div>
+  </div>
+
+<!-- <?php include './includes/header.php';?> -->
+    <form action="" id="forms" method="post">
+        <p>Enter your detail</p>
+        <div>
+            <input type="text" name="fname" id="fname"placeholder="First name"required>
+            <input type="text" name="sname" id="sname"placeholder="Second name"required>
+            <input type="text" name="lname" id="lname"placeholder="Last name"required>
+            <br><br>
+        </div>
+        <div>
+            <label for="date">Birth date</label>
+            <br>
+            <input type="date" name="date" id="date"required>
+            
+        </div>
+        <br>
+        <div id="gder">
+            <label for="gender">Gender</label>
+            <input type="radio" name="gender" id="gender"value="Male"required>Male
+            <input type="radio" name="gender" id="gender" value="Female"required>Female
+            
+        </div>
+        <br>
+        <div>
+        <input type="email" name="email" id="email"placeholder="Email"required>
+        <input type="tel" name="phone" id="phone"placeholder="Phone number"required>
+        </div>
+        <br>
+        <div id="apply">
+         <label for="name">Position Applying</label>
+         <br>
+         <input type="text" name="position" id="position" value="<?php echo $_GET['name'];?>" disabled>
+
+        </div>
+        <br>
+        <div id="up">
+            <label for="choose file">Upload CV</label>
+            <br>
+            <input type="file" name="file" id="file"required>
+
+        </div>
+            <br>
+        <input type="submit" value="Submit">
+
+    
+    </form>
+    
+    <!-- <?php include './includes/footer.php';?> -->
+
+    <footer>
+
+        <p>@copyright 2023</p>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<!--  jQuery --> 
+<script src="./Admin/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="./Admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="./Admin/dist/js/adminlte.min.js"></script>
+<script src="./js/index.js"></script>
+</body>
+</html>

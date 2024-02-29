@@ -1,0 +1,159 @@
+<!-- <?php   
+ $conn = mysqli_connect('localhost','root','','jobdb');
+ if($conn){
+ }else{
+    die("Fail to connect".mysqli_error($conn));
+ }
+    if(isset($_POST['jobtype'])){
+        $jobtype = $_POST['jobtype'];
+        $region = $_POST['region'];
+    
+        $sql = "SELECT * FROM `jobs` WHERE jobs.time = '$jobtype' AND jobs.region = '$region'";
+        $result = mysqli_query($conn,$sql);
+    }else{
+
+        $sql = "SELECT * FROM jobs";
+        $result = mysqli_query($conn,$sql);
+    }
+
+        
+         
+
+
+?> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOB FOR SPECIAL NEED</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="./Admin/plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="./Admin/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="./Admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="./Admin/plugins/jqvmap/jqvmap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="./Admin/dist/css/adminlte.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="./Admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="./Admin/plugins/daterangepicker/daterangepicker.css">
+  <!-- summernote -->
+  <link rel="stylesheet" href="./Admin/plugins/summernote/summernote-bs4.min.css">
+  <!-- bootsrap CSS -->
+  <link rel="stylesheet" href="./Admin/Bootsrap/bootstrap.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="./Admin/plugins/fontawesome-free/css/all.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="./Admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="./Admin/dist/css/adminlte.min.css" >
+  <!-- my css -->
+  <title>AdminLTE 3 | Registration Page</title>
+  <link rel="stylesheet" href="./modified-css/main.css">
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="./index.html">Home</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+    
+      <ul class="navbar-nav ">
+        <li class="nav-item">
+          <a class="nav-link" href="./contact.html"><Caption>Contact</Caption></a>
+        </li> 
+        <li class="nav-item">
+          <!-- <?php if($_SERVER['REQUEST_URI'] == '/Daudi/index.html'|| $_SERVER['REQUEST_URI'] == '/Daudi/*'){ echo $_SERVER['REQUEST_URI'];?>
+              <a class="nav-link" href="#" id="admin"><Caption>Admin</Caption></a>
+          <?php } ?> -->
+        </li>
+      </ul>
+      
+    </div>
+  </div>
+
+<!-- <?php include './includes/header.php';?> -->
+<br><br>
+<main id="main-form">
+    choose your opinion job
+    <form action="" method="post">
+        <select name="jobtype" id="jobtype" >
+            <option value="" selected disabled>Select job time</option>
+            <option value="full time">Full-time</option>
+            <option value="part time">Part-time</option>
+        </select>
+        <select name="region" id="region ">
+            <option value="arusha">Arusha</option>
+            <option value="dar es salaam">Dar es salaam</option>
+            <option value="dodoma">Dodoma</option>
+            <option value="geita">Geita</option>
+            <option value="iringa">Iringa</option>
+            <option value="kagera">Kagera</option>
+            <option value="katavi">Katavi</option>
+            <option value="kigoma">Kigoma</option>
+            <option value="kilimanjaro">Kilimanjaro</option>
+            <option value="lindi">Lindi</option>
+            <option value="manyara">Manyara</option>
+            <option value="mara">Mara</option>
+            <option value="mbeya">Mbeya</option>
+            <option value="morogoro">Morogoro</option>
+            <option value="mtwara">Mtwara</option>
+            <option value="mwanza">Mwanza</option>
+            <option value="njombe">Njombe</option>
+            <option value="pwani">Pwani</option>
+            <option value="rukwa">Rukwa</option>
+            <option value="ruvuma">Ruvuma</option>
+            <option value="shinyanga">Shinyanga</option>
+            <option value="simiyu">Simiyu</option>
+            <option value="singida">Singida</option>
+            <option value="songwe">Songwe</option>
+            <option value="tabora">Tabora</option>
+            <option value="tanga">Tanga</option>
+        </select>
+        <input type="submit" value="Serach" name="submit">
+    </form>
+    <!-- <div class="job-wrapper">
+        <?php while($row = mysqli_fetch_array($result)){ ?>
+            <div class="job">
+                <h2><?php echo $row['name']; ?></h2>
+                <p><?php echo $row['description'];?></p>
+                <h4><?php echo $row['region']; ?></h4>
+                <h5><?php echo $row['company']; ?></h5>
+                <h6><?php echo $row['time']; ?></h6>
+                <a href="./form.php?name=<?php echo $row['name'];?>">apply now</a>
+            </div>
+        <?php }; ?>
+    </div> -->
+        </main>
+        
+    <!-- <?php include './includes/footer.php';?> -->
+
+    <footer>
+
+        <p>@copyright 2023</p>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<!--  jQuery --> 
+<script src="./Admin/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="./Admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="./Admin/dist/js/adminlte.min.js"></script>
+<script src="./js/index.js"></script>
+</body>
+</html>
