@@ -1,40 +1,73 @@
-*{
-    margin:0;
-    padding:0;
+* {
+    margin: 0;
+    padding: 0;
 }
-body{
+
+body {
     box-sizing: border-box;
 }
-main{
-    
-    display: flex;
-    justify-content: space-between;
-    width: 86%;
-    margin:0 auto;
-    margin-top: 40px;
-}
-header{
+
+header {
     height: 60px;
-    width: 86%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
-    margin: 0 auto;
-    background-color: #f5c3a5;
     align-items: center;
-    margin-bottom: 2em;
+    background-color: #f5c3a5;
+    padding: 0 2em;
+    box-sizing: border-box;
 }
-.about{
-    border-right: 1px solid black;
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    width: 86%;
+    margin: 40px auto;
+}
+
+.about {
     flex: 1;
-    height: 90vh;
+    max-width: 45%;
     margin-right: 1.2rem;
 }
-.form-container{
+
+.about img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.login-box {
+    flex: 1;
+    max-width: 45%;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+        align-items: center;
+    }
+    .about,
+    .login-box {
+        max-width: 100%;
+        margin-right: 0;
+    }
+}
+
+.form-container {
     display: flex;
     justify-content: center;
-    flex:1;
+    flex: 1;
     margin: 0 auto;
 }
+
+
 /* #form{
     background-color: #f1f1f1;
     display: flex;
@@ -45,12 +78,16 @@ header{
     padding: 2em;
     border-radius: 12px;
 } */
+
+
 /* input[type="text"],input[type="password"],input[type="email"],input[type="tel"],input[type="checkbox"],input[type="radio"],input[type="tel"],input[type="date"]{
     height: 28px;
     border-radius: 3px;
     border: none;
     padding-left: 7px;
 } */
+
+
 /* input[type="submit"]{
     height: 28px;
     background-color: palevioletred;
@@ -58,10 +95,13 @@ header{
     border-radius: 7px;
     border: none;
 } */
+
+
 /* input[type="checkbox"]{
     margin-right: 7px;
 } */
-form a{
+
+form a {
     display: block;
     text-decoration: none;
     padding-top: 7px;
@@ -71,7 +111,8 @@ form a{
     color: white;
     border-radius: 7px;
 }
-footer{
+
+footer {
     width: 86%;
     margin: 0 auto;
     height: 8vh;
@@ -84,13 +125,15 @@ footer{
     bottom: 0;
     left: 7%;
 }
-div#photo{
-    margin:0 auto;
+
+div#photo {
+    margin: 0 auto;
     background-image: url('../images/photo.jpeg');
-    width:86%;
+    width: 86%;
     height: 100vh;
 }
-#table{
+
+#table {
     display: block;
     text-decoration: none;
     padding-top: 7px;
@@ -100,7 +143,8 @@ div#photo{
     color: white;
     border-radius: 7px;
 }
-.table{
+
+.table {
     display: block;
     text-align: center;
     text-decoration: none;
@@ -108,38 +152,41 @@ div#photo{
     color: white;
     border-radius: 30px;
     justify-content: center;
-    flex:1;
+    flex: 1;
     margin: 0 auto;
     width: 60%;
     height: 65vh;
     padding: 2em;
-    
 }
-.table p{
+
+.table p {
     color: black;
 }
-.job-wrapper{
+
+.job-wrapper {
     display: flex;
     justify-content: space-around;
 }
-.job{
+
+.job {
     height: 60vh;
-    flex:1;
+    flex: 1;
     background-color: pink;
     margin: 0.8em;
     padding: 1em;
     border-top-right-radius: 15px;
     border-bottom-left-radius: 15px;
 }
-main#main-form{
-display: flex;
-justify-content: space-between;
-flex-direction: column;
-width: 86%;
-margin:0 auto;
-  
+
+main#main-form {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 86%;
+    margin: 0 auto;
 }
-#forms{
+
+#forms {
     display: block;
     text-align: center;
     text-decoration: none;
@@ -147,71 +194,82 @@ margin:0 auto;
     color: white;
     border-radius: 30px;
     justify-content: center;
-    flex:1;
+    flex: 1;
     margin: 0 auto;
     width: 60%;
     height: 80vh;
     padding: 2em;
-
 }
-#forms p{
+
+#forms p {
     color: black;
 }
-#apply{
+
+#apply {
     color: black;
     display: flex;
     justify-content: center;
-    flex:1;
+    flex: 1;
     margin: 0 auto;
 }
-#up{
-    color: black;
 
+#up {
+    color: black;
 }
-.error{
+
+.error {
     display: block;
     font-size: 0.75rem;
     color: red;
-    padding:0.5rem 0 0 0.5rem;
+    padding: 0.5rem 0 0 0.5rem;
 }
-.success{
+
+.success {
     display: none;
     font-size: 0.75rem;
     color: #087d08;
-    padding:0.5rem 0 0 0.5rem;
+    padding: 0.5rem 0 0 0.5rem;
 }
-.rbox{
+
+.rbox {
     display: flex;
     width: 100%;
     justify-content: center;
     align-items: center;
 }
-.card-yetu{
+
+.card-yetu {
     width: 80%;
     display: flex;
     justify-content: center;
 }
-.rform label a{
+
+.rform label a {
     display: inline-block;
     padding: .6rem;
 }
-.inline{
+
+.inline {
     display: flex;
     height: 48px;
     align-items: center;
 }
+
+
 /* div#box{
     display: flex;
     flex:1;
     background-color: red;
 } */
-div#cbox{
+
+div#cbox {
     display: flex;
     background-color: blue;
     flex-direction: column;
     width: 100%;
 }
-.modo{
+
+.modo {
     position: fixed;
     display: flex;
     justify-content: center;
@@ -224,14 +282,16 @@ div#cbox{
     z-index: 199;
     display: none;
 }
-.card-modo{
+
+.card-modo {
     display: flex;
     flex-direction: column;
     padding: 1rem;
     background-color: #fffefe;
     border-radius: 7px;
 }
-.card-modo .close-btn{
+
+.card-modo .close-btn {
     align-self: flex-end;
     display: inline-block;
     padding: 0.1em 0.7em;
@@ -239,37 +299,38 @@ div#cbox{
     background-color: transparent;
     transition: all 399ms ease;
 }
-.card-modo .close-btn:hover{
-   color: white;
-   background-color: red;
+
+.card-modo .close-btn:hover {
+    color: white;
+    background-color: red;
 }
-.card-modo form{
+
+.card-modo form {
     display: flex;
     flex-direction: column;
     width: 35vw;
 }
-.card-modo h2{
+
+.card-modo h2 {
     text-align: center;
 }
-.card-modo form input{
+
+.card-modo form input {
     margin-bottom: 0.7rem;
     padding-left: 0.52rem;
     border-radius: 5px;
     border: none;
     background-color: #f5f5f5;
     height: 36px;
-
 }
-.card-modo form input[type="submit"]{
+
+.card-modo form input[type="submit"] {
     background-color: blue;
     color: white;
     text-transform: uppercase;
     font-weight: 800;
 }
 
-.open{
+.open {
     display: flex;
 }
-
-
-

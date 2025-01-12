@@ -1,3 +1,34 @@
+<?php
+// Start session and check if admin is logged in
+session_start();
+if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
+    header("Location: login.html");
+    exit;
+}
+
+// Database connection
+$conn = mysqli_connect('localhost', 'root', '', 'jobdb');
+if (!$conn) {
+    die("Database connection failed: " . mysqli_connect_error());
+}
+
+// Handle job addition
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $title = mysqli_real_escape_string($conn, $_POST['title']);
+    $description = mysqli_real_escape_string($conn, $_POST['description']);
+
+    $query = "INSERT INTO jobs (title, description) VALUES ('$title', '$description')";
+    if (mysqli_query($conn, $query)) {
+        $success_message = "Job added successfully!";
+    } else {
+        $error_message = "Error adding job: " . mysqli_error($conn);
+    }
+}
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,14 +59,15 @@
   <!-- bootsrap CSS -->
   <link rel="stylesheet" href="Bootsrap/bootstrap.min.css">
 
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
   <!-- Preloader -->
-  <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="../images/Daud.png" alt="AdminLTELogo" height="100%" width="100%">
-  </div>
+  
 
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -45,7 +77,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="../index.html" class="nav-link">Home</a>
+        <a href="./index.php" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="../contact.php" class="nav-link">Contact</a>
@@ -116,7 +148,8 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Dashboard Menu -->
           <li class="nav-item menu-open">
-           
+            <!--  -->
+            </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="./index.php" class="nav-link active">
@@ -149,114 +182,41 @@
     </div>
     <!-- /.sidebar -->
   </aside>
+<!-- Content Wrapper -->
+<div class="content-wrapper">
+  <!-- Main Content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="card card-primary">
+        <div class="card-header">
+          <h3 class="card-title">Add a New Job</h3>
+        </div>
+        <form method="post">
+          <div class="card-body">
+            <?php if (!empty($success_message)) echo "<div class='alert alert-success'>$success_message</div>"; ?>
+            <?php if (!empty($error_message)) echo "<div class='alert alert-danger'>$error_message</div>"; ?>
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">Dashboard</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
+            <div class="form-group">
+              <label for="title">Job Title</label>
+              <input type="text" name="title" class="form-control" id="title" placeholder="Enter job title" required>
+            </div>
+            <div class="form-group">
+              <label for="description">Job Description</label>
+              <textarea name="description" class="form-control" id="description" rows="4" placeholder="Enter job description" required></textarea>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Add Job</button>
+          </div>
+        </form>
+      </div>
     </div>
-    <!-- /.content-header -->
+  </section>
+</div>
 
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        <!-- Small boxes (Stat box) -->
-        <div class="row">
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3>150</h3>
 
-                <p>New Orders</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-bag"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
 
-                <p>Bounce Rate</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-stats-bars"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3>44</h3>
 
-                <p>User Registrations</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h3>65</h3>
-                <p>Unique Visitors</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-        </div>
-        <!-- /.row -->
-        <!-- Main row -->
-        <div class="row">
-          <!-- Left col -->
-          <section class="col-lg-7 connectedSortable">
-            <!-- Custom tabs (Charts with tabs)-->
-            <!-- /.card -->
-
-            <!-- DIRECT CHAT -->
-           
-            <!-- /.card -->
-          </section>
-          <!-- /.Left col -->
-          <!-- right col (We are only adding the ID to make the widgets sortable)-->
-          <!-- right col -->
-        </div>
-        <!-- /.row (main row) -->
-      </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
   <footer class="main-footer">
     <strong>Copyright &copy; 2022-2025 <a href="">Jobs Special</a>.</strong>
     All rights reserved.
@@ -306,5 +266,12 @@
 <script src="Bootsrap/bootstrap.bundle.min.js"></script>
 <script src="./Bootsrap/bootstrap.min.js"></script>
 <script src="./Bootsrap/popper.min.js"></script>
+
+<script src="plugins/jquery/jquery.min.js"></script>
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="dist/js/adminlte.js"></script>
 </body>
 </html>
+
+
+

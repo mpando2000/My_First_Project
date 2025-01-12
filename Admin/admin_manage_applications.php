@@ -1,3 +1,57 @@
+<?php
+// Start session and check admin login
+session_start();
+if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
+    header("Location: login.html");
+    exit;
+}
+
+// Database connection
+$conn = mysqli_connect('localhost', 'root', '', 'jobdb');
+if (!$conn) {
+    die("Database connection failed: " . mysqli_connect_error());
+}
+
+// Update application status
+// Update application status
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $application_id = intval($_POST['application_id']);
+    $new_status = $_POST['status'];
+
+    // Check if the new status is one of the valid enum values
+    $valid_statuses = ['Pending', 'Agreed', 'Disagreed'];
+    if (in_array($new_status, $valid_statuses)) {
+        // Update the status in the applied_jobs table
+        $query = "UPDATE applied_jobs SET status = '$new_status' WHERE id = $application_id";
+        if (mysqli_query($conn, $query)) {
+            $success_message = "Application status updated successfully!";
+            header("Location: " . $_SERVER['PHP_SELF']);
+            exit;
+        } else {
+            $error_message = "Error updating application: " . mysqli_error($conn);
+        }
+    } else {
+        $error_message = "Invalid status value!";
+    }
+}
+
+
+// Fetch all job applications
+$query = "SELECT applied_jobs.id AS application_id, users.name AS user_name, 
+                 jobs.title AS job_title, applied_jobs.status
+          FROM applied_jobs
+          JOIN users ON applied_jobs.user_id = users.id
+          JOIN jobs ON applied_jobs.job_id = jobs.id";
+$result = mysqli_query($conn, $query);
+?>
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,6 +81,112 @@
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
   <!-- bootsrap CSS -->
   <link rel="stylesheet" href="Bootsrap/bootstrap.min.css">
+
+  <style>
+    /* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+/* Table Header Styling */
+th {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+}
+
+/* Table Row Styling */
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #ddd;
+}
+
+/* Status Dropdown Styling */
+select {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+select:focus {
+    border-color: #4CAF50;
+}
+
+/* Button Styling */
+button {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+button:active {
+    background-color: #3e8e41;
+}
+
+/* Success and Error Messages */
+p {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.success-message {
+    color: green;
+}
+
+.error-message {
+    color: red;
+}
+
+/* Table Container Styling */
+table {
+    margin: 20px 0;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+table thead {
+    background-color: #343a40;
+}
+
+table thead th {
+    color: #fff;
+}
+
+table tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f1f1f1;
+}
+
+  </style>
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -152,108 +312,45 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">Dashboard</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
 
     <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        <!-- Small boxes (Stat box) -->
-        <div class="row">
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3>150</h3>
+    <h1>Manage Job Applications</h1>
+<?php if (!empty($success_message)) echo "<p class='success-message'>$success_message</p>"; ?>
+<?php if (!empty($error_message)) echo "<p class='error-message'>$error_message</p>"; ?>
 
-                <p>New Orders</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-bag"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+<table>
+    <thead>
+        <tr>
+            <th>Application ID</th>
+            <th>User</th>
+            <th>Job Title</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+            <tr>
+                <td><?php echo $row['application_id']; ?></td>
+                <td><?php echo $row['user_name']; ?></td>
+                <td><?php echo $row['job_title']; ?></td>
+                <td><?php echo $row['status']; ?></td>
+                <td>
+                    <form method="post">
+                        <input type="hidden" name="application_id" value="<?php echo $row['application_id']; ?>">
+                        <select name="status" required>
+                            <option value="Pending" <?php if ($row['status'] === 'Pending') echo 'selected'; ?>>Pending</option>
+                            <option value="Agreed" <?php if ($row['status'] === 'Agreed') echo 'selected'; ?>>Agreed</option>
+                            <option value="Disagreed" <?php if ($row['status'] === 'Disagreed') echo 'selected'; ?>>Disagreed</option>
+                        </select>
+                        <button type="submit">Update</button>
+                    </form>
+                </td>
+            </tr>
+        <?php } ?>
+    </tbody>
+</table>
 
-                <p>Bounce Rate</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-stats-bars"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3>44</h3>
-
-                <p>User Registrations</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h3>65</h3>
-                <p>Unique Visitors</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-        </div>
-        <!-- /.row -->
-        <!-- Main row -->
-        <div class="row">
-          <!-- Left col -->
-          <section class="col-lg-7 connectedSortable">
-            <!-- Custom tabs (Charts with tabs)-->
-            <!-- /.card -->
-
-            <!-- DIRECT CHAT -->
-           
-            <!-- /.card -->
-          </section>
-          <!-- /.Left col -->
-          <!-- right col (We are only adding the ID to make the widgets sortable)-->
-          <!-- right col -->
-        </div>
-        <!-- /.row (main row) -->
-      </div><!-- /.container-fluid -->
-    </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -308,3 +405,6 @@
 <script src="./Bootsrap/popper.min.js"></script>
 </body>
 </html>
+
+
+<?php mysqli_close($conn); ?>
